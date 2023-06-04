@@ -3,6 +3,8 @@ class GlobalVariables {
 
   List<String> options = [];
 
+  bool isVisible = false;
+
   List<String> licenseNo = [
     "Toyota/97-666",
     "Toyota/122476",
@@ -17,16 +19,15 @@ class GlobalVariables {
     "Ananta Jalil"
   ];
 
-
-  void addData(String newData){
+  void addData(String newData) {
     options.add(newData);
   }
 
-  void clearData(){
+  void clearData() {
     options.clear();
   }
 
-  factory GlobalVariables(){
+  factory GlobalVariables() {
     return _globalvariables;
   }
   GlobalVariables._internal();

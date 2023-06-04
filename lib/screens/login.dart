@@ -6,9 +6,7 @@ import 'package:test_assignment/screens/homepage.dart';
 import 'package:test_assignment/utils/apihandler.dart';
 
 class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key});
-
-
+  const LogInScreen({Key? key}) : super(key: key);
 
   @override
   State<LogInScreen> createState() => _LogInScreenState();
@@ -18,7 +16,6 @@ class _LogInScreenState extends State<LogInScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _passwordVisible = true;
-  
 
   errorSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -35,10 +32,10 @@ class _LogInScreenState extends State<LogInScreen> {
     };
     var res = await api().postData(credentials, '/auth/login');
     var body = json.decode(res.body);
-    if (res.statusCode == 200) { 
-          print(body['data']['token']);
-          SharedPreferences pref = await SharedPreferences.getInstance();
-          pref.setString('token', body['data']['token']);
+    if (res.statusCode == 200) {
+      print(body['data']['token']);
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString('token', body['data']['token']);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
@@ -48,7 +45,7 @@ class _LogInScreenState extends State<LogInScreen> {
     }
   }
 
-@override
+  @override
   void initState() {
     super.initState();
     _passwordVisible = false;
@@ -72,9 +69,10 @@ class _LogInScreenState extends State<LogInScreen> {
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.email),),
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.email),
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -83,19 +81,21 @@ class _LogInScreenState extends State<LogInScreen> {
                 controller: passwordController,
                 obscureText: !_passwordVisible,
                 keyboardType: TextInputType.text,
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                     labelText: "Password",
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock),
                     suffixIcon: IconButton(
-                    onPressed: (){
-                       setState(() {
-                       _passwordVisible = !_passwordVisible;
-                        });
-                    } , 
-                    icon: Icon(_passwordVisible? Icons.visibility: Icons.visibility_off,
-               ))
-                    ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ))),
               ),
               SizedBox(
                 height: 30,
@@ -115,7 +115,10 @@ class _LogInScreenState extends State<LogInScreen> {
                   ),
                   alignment: Alignment.center,
                   child: Text("Log In",
-                      style: TextStyle(fontSize: 22, color: Colors.white, fontFamily: 'Euclid' )),
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                          fontFamily: 'Euclid')),
                 ),
               )
             ],
