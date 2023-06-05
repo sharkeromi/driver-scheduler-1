@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 Widget DriverProfileCard(
     height, width, imageUrl, driverName, carNumber, shiftDateTime, status) {
   return Container(
-    height: height * 0.1,
-    width: width * 0.8,
+    height: 71,
+    width: 328,
     decoration: BoxDecoration(
       border: Border.all(
           color: Color(0xff2257AA), width: 1, style: BorderStyle.solid),

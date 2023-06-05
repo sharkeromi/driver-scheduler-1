@@ -3,6 +3,7 @@ import 'package:chips_choice/chips_choice.dart';
 import 'package:test_assignment/globalVariables.dart';
 import 'package:test_assignment/model/index.dart';
 import 'package:test_assignment/utils/apihandler.dart';
+import 'package:test_assignment/utils/customFilterChips.dart';
 import 'package:test_assignment/utils/customTextField.dart';
 import 'package:test_assignment/utils/driverprofilecard.dart';
 import 'package:date_format/date_format.dart';
@@ -42,8 +43,6 @@ class _HomePageState extends State<HomePage> {
     _license.clear();
   }
 
-  //bool isVisible = false;
-
   int tag = 3;
   String chosenlicence = "";
   String chosenDriver = "";
@@ -54,6 +53,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController _endTime = TextEditingController();
   TextEditingController _license = TextEditingController();
   TextEditingController _driver = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold)),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 16.0, right: 16),
@@ -132,23 +133,23 @@ class _HomePageState extends State<HomePage> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.end,
                                                 children: [
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 10,
                                                   ),
-                                                  Text("Filter",
+                                                  const Text("Filter",
                                                       style: TextStyle(
                                                           fontSize: 20,
                                                           fontFamily: 'Euclid',
                                                           fontWeight:
                                                               FontWeight.bold)),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 10,
                                                   ),
                                                   GestureDetector(
                                                       onTap: () {
                                                         clearText();
                                                       },
-                                                      child: Text("Clear",
+                                                      child: const Text("Clear",
                                                           style: TextStyle(
                                                               fontSize: 16,
                                                               fontFamily:
@@ -685,47 +686,54 @@ class _HomePageState extends State<HomePage> {
             if (globalvariables.options.isNotEmpty)
               Visibility(
                 visible: globalvariables.isVisible,
-                child: Container(
-                  //height: height*0.25,
-                  width: width * 0.9,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 17, 17, 0),
                   child: Wrap(
                     direction: Axis.horizontal,
+                    alignment: WrapAlignment.start,
                     children: [
-                      ChipsChoice<int>.single(
-                        value: tag,
-                        onChanged: (val) => setState(() => tag = val),
-                        choiceItems: C2Choice.listFrom<int, String>(
-                          source: globalvariables.options,
-                          value: (i, v) => i,
-                          label: (i, v) => v,
-                          tooltip: (i, v) => v,
-                          delete: (i, v) => () {
-                            setState(() => globalvariables.options.removeAt(i));
+                      for (int i = 0; i < globalvariables.options.length; i++)
+                        CustomFilterChips(
+                          index: i,
+                          onTap: () {
+                            globalvariables.clearSpecific(i);
+                            setState(() {});
                           },
                         ),
-                        choiceStyle: C2ChipStyle.outlined(
-                          borderOpacity: 0.3,
-                          borderStyle: BorderStyle.solid,
-                          color: Colors.black,
-                          iconColor: const Color(0xffFF6368),
-                          iconSize: 22,
-                          // selectedStyle: C2ChipStyle.filled(
-                          //     foregroundStyle: const TextStyle(
-                          //         fontSize: 16.8,
-                          //         fontFamily: 'Euclid',
-                          //         color: Colors.white),
-                          //     iconColor: Colors.white,
-                          //     color: const Color(0xffFF6368)),
-                          foregroundStyle: const TextStyle(
-                              fontSize: 16.8,
-                              fontFamily: 'Euclid',
-                              color: Colors.black),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(15),
-                          ),
+                      Chip(
+                        backgroundColor: const Color(0XFFFF6368),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
                         ),
-                        wrapped: true,
-                      ),
+                        side: BorderSide(color: const Color(0XFFFF6368)),
+                        label: const Text(
+                          "Clear",
+                          style: TextStyle(
+                              fontSize: 16.8,
+                              fontFamily: 'Euclid Regular',
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                        onDeleted: () {
+                          setState(() {
+                            globalvariables.clearData();
+                          });
+                        },
+                        //globalvariables.isVisible = false
+
+                        deleteIcon: Container(
+                            width: 25,
+                            height: 25,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: const Icon(
+                              Icons.close,
+                              size: 15,
+                              color: const Color(0XFFFF6368),
+                            )),
+                      )
                     ],
                   ),
                 ),
@@ -733,7 +741,7 @@ class _HomePageState extends State<HomePage> {
             const Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 22.0),
+                  padding: EdgeInsets.only(left: 22.0, top: 16),
                   child: Text(
                     "Available Shift",
                     style: TextStyle(
@@ -744,35 +752,40 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )),
             Expanded(
-              child: Container(
-                //color: Colors.amber,
-                width: width * 0.9,
-                child: FutureBuilder<Filter>(
-                    future: driverInfo,
-                    builder: (BuildContext context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Center(
-                          child: Text(snapshot.error.toString()),
-                        );
-                      }
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            itemCount: snapshot.data!.data?.length,
-                            itemBuilder: (BuildContext context, i) {
-                              return Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: DriverProfileCard(
-                                      height,
-                                      width,
-                                      snapshot.data!.data![i].driverImage,
-                                      snapshot.data!.data![i].driverName,
-                                      snapshot.data!.data![i].carNumber,
-                                      snapshot.data!.data![i].shiftDateTime,
-                                      snapshot.data!.data![i].status));
-                            });
-                      }
-                      return Center(child: const CircularProgressIndicator());
-                    }),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: Container(
+                  //color: Colors.amber,
+                  //width: width,
+                  child: FutureBuilder<Filter>(
+                      future: driverInfo,
+                      builder: (BuildContext context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(snapshot.error.toString()),
+                          );
+                        }
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.data?.length,
+                              itemBuilder: (BuildContext context, i) {
+                                return Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: DriverProfileCard(
+                                        height,
+                                        width,
+                                        snapshot.data!.data![i].driverImage,
+                                        snapshot.data!.data![i].driverName,
+                                        snapshot.data!.data![i].carNumber,
+                                        snapshot.data!.data![i].shiftDateTime,
+                                        snapshot.data!.data![i].status));
+                              });
+                        }
+                        return Center(child: const CircularProgressIndicator());
+                      }),
+                ),
               ),
             )
           ],

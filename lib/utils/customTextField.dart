@@ -26,13 +26,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       onFieldSubmitted: (value) {
-        globalvariables.addData(value);
         if (globalvariables.options.isNotEmpty) {
+          //globalvariables.replace(value.toString().trim());
+          globalvariables.addData(value.toString().trim());
+          globalvariables.isVisible = true;
+        } else if (globalvariables.options.isEmpty) {
+          globalvariables.addData(value.toString().trim());
           globalvariables.isVisible = true;
         } else {
           globalvariables.isVisible = false;
         }
-        //globalvariables.isVisible = !globalvariables.isVisible;
         search.clear();
         setState(() {
           clearButtonVisible = false;

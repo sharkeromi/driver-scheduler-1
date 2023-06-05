@@ -20,11 +20,28 @@ class GlobalVariables {
   ];
 
   void addData(String newData) {
-    options.add(newData);
+    if (newData.toString().trim() == "") {
+    } else {
+      options.add(newData);
+    }
+  }
+
+  void replace(String newData) {
+    if (newData.toString().trim() == "") {
+    } else {
+      options.clear();
+      options.add(newData);
+    }
   }
 
   void clearData() {
     options.clear();
+    //isVisible = false;
+  }
+
+  void clearSpecific(specificDataIndex) {
+    options.removeAt(specificDataIndex);
+    print(options);
   }
 
   factory GlobalVariables() {
