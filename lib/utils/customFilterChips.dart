@@ -18,33 +18,81 @@ class _CustomFilterChipsState extends State<CustomFilterChips> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 8),
-      child: Chip(
-        shape: RoundedRectangleBorder(
+        padding: const EdgeInsets.only(right: 8),
+        child: Container(
+          height: 32,
+          decoration: BoxDecoration(
+            color: Colors.white,
             borderRadius: BorderRadius.circular(25),
-            side: BorderSide(color: Colors.grey.shade400)),
-        label: Text(
-          globalvariables.options[widget.index],
-          style: const TextStyle(
-              fontSize: 16.8,
-              fontFamily: 'Euclid Regular',
-              fontWeight: FontWeight.w700,
-              color: Colors.black),
-        ),
-        onDeleted: widget.onTap,
-        deleteIcon: Container(
-            width: 25,
-            height: 25,
-            decoration: BoxDecoration(
-              color: const Color(0XFFFF6368),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Icon(
-              Icons.close,
-              size: 15,
-              color: Colors.white,
-            )),
-      ),
-    );
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black45,
+                blurRadius: 1,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(8, 1, 4, 1),
+                child: Text(
+                  globalvariables.options[widget.index],
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Euclid Regular',
+                      color: Colors.black),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 1, 8, 1),
+                child: GestureDetector(
+                  onTap: widget.onTap,
+                  child: Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: const Color(0XFFFF6368),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: const Icon(
+                        Icons.close,
+                        size: 12,
+                        color: Colors.white,
+                      )),
+                ),
+              ),
+            ],
+          ),
+        )
+        // Chip(
+        //   shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.circular(25),
+        //       side: BorderSide(color: Colors.grey.shade400)),
+        //   label: Text(
+        //     globalvariables.options[widget.index],
+        //     style: const TextStyle(
+        //         fontSize: 16.8,
+        //         fontFamily: 'Euclid Regular',
+        //         fontWeight: FontWeight.w700,
+        //         color: Colors.black),
+        //   ),
+        //   onDeleted: widget.onTap,
+        //   deleteIcon: Container(
+        //       width: 25,
+        //       height: 25,
+        //       decoration: BoxDecoration(
+        //         color: const Color(0XFFFF6368),
+        //         borderRadius: BorderRadius.circular(20),
+        //       ),
+        //       child: const Icon(
+        //         Icons.close,
+        //         size: 15,
+        //         color: Colors.white,
+        //       )),
+        // ),
+        );
   }
 }

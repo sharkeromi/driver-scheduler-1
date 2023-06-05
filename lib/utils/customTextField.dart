@@ -27,8 +27,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return TextFormField(
       onFieldSubmitted: (value) {
         if (globalvariables.options.isNotEmpty) {
-          //globalvariables.replace(value.toString().trim());
-          globalvariables.addData(value.toString().trim());
+          globalvariables.replace(value.toString().trim());
+          //globalvariables.addData(value.toString().trim());
           globalvariables.isVisible = true;
         } else if (globalvariables.options.isEmpty) {
           globalvariables.addData(value.toString().trim());

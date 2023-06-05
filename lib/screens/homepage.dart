@@ -700,40 +700,92 @@ class _HomePageState extends State<HomePage> {
                             setState(() {});
                           },
                         ),
-                      Chip(
-                        backgroundColor: const Color(0XFFFF6368),
-                        shape: RoundedRectangleBorder(
+                      Container(
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: const Color(0XFFFF6368),
                           borderRadius: BorderRadius.circular(25),
-                        ),
-                        side: BorderSide(color: const Color(0XFFFF6368)),
-                        label: const Text(
-                          "Clear",
-                          style: TextStyle(
-                              fontSize: 16.8,
-                              fontFamily: 'Euclid Regular',
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white),
-                        ),
-                        onDeleted: () {
-                          setState(() {
-                            globalvariables.clearData();
-                          });
-                        },
-                        //globalvariables.isVisible = false
-
-                        deleteIcon: Container(
-                            width: 25,
-                            height: 25,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black45,
+                              blurRadius: 1,
+                              offset: Offset(0, 0),
                             ),
-                            child: const Icon(
-                              Icons.close,
-                              size: 15,
-                              color: const Color(0XFFFF6368),
-                            )),
+                          ],
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 1, 4, 1),
+                              child: Text(
+                                "Clear",
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Euclid Regular',
+                                    color: Colors.white),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 1, 8, 1),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    globalvariables.clearData();
+                                  });
+                                },
+                                child: Container(
+                                    width: 20,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: const Icon(
+                                      Icons.close,
+                                      size: 12,
+                                      color: const Color(0XFFFF6368),
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
                       )
+                      // Chip(
+                      //   backgroundColor: const Color(0XFFFF6368),
+                      //   shape: RoundedRectangleBorder(
+                      //     borderRadius: BorderRadius.circular(25),
+                      //   ),
+                      //   side: BorderSide(color: const Color(0XFFFF6368)),
+                      //   label: const Text(
+                      //     "Clear",
+                      //     style: TextStyle(
+                      //         fontSize: 16.8,
+                      //         fontFamily: 'Euclid Regular',
+                      //         fontWeight: FontWeight.w700,
+                      //         color: Colors.white),
+                      //   ),
+                      //   onDeleted: () {
+                      //     setState(() {
+                      //       globalvariables.clearData();
+                      //     });
+                      //   },
+                      //   //globalvariables.isVisible = false
+
+                      //   deleteIcon: Container(
+                      //       width: 25,
+                      //       height: 25,
+                      //       decoration: BoxDecoration(
+                      //         color: Colors.white,
+                      //         borderRadius: BorderRadius.circular(20),
+                      //       ),
+                      //       child: const Icon(
+                      //         Icons.close,
+                      //         size: 15,
+                      //         color: const Color(0XFFFF6368),
+                      //       )),
+                      // )
                     ],
                   ),
                 ),
