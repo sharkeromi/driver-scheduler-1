@@ -21,17 +21,17 @@ class AlwaysDisabledFocusNode extends FocusNode {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<Filter>? driverInfo;
-
+  GlobalVariables _globalVariables = new GlobalVariables();
   @override
   void initState() {
     super.initState();
-    getData();
-    //clearButtonVisible = true;
+    globalvariables.filterDriverInfo = globalvariables.datalist;
   }
 
   getData() async {
-    driverInfo = api().fetchDriverInfo();
+    globalvariables.driverInfo =
+        (await api().fetchDriverInfo()) as Future<Filter>?;
+    // globalvariables.foundDrivers = driverInfo;
   }
 
   void clearText() {
@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
   TextEditingController _endTime = TextEditingController();
   TextEditingController _license = TextEditingController();
   TextEditingController _driver = TextEditingController();
+  TextEditingController search = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -79,17 +80,39 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
-                      height: 40,
-                      width: width * 0.75,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.grey,
-                            width: 1,
-                            style: BorderStyle.solid),
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white,
-                      ),
-                      child: const CustomTextField()),
+                    height: 40,
+                    width: width * 0.75,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.grey,
+                          width: 1,
+                          style: BorderStyle.solid),
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white,
+                    ),
+                    child: CustomTextField(
+                      onChanged: (val) {
+                        if (val.toString().trim() == "") {
+                          globalvariables.clearButtonVisible = false;
+                          globalvariables.runFilter(val);
+                        } else if (val.isNotEmpty) {
+                          globalvariables.runFilter(val);
+                          globalvariables.clearButtonVisible = true;
+                        }                         else {
+                          globalvariables.clearButtonVisible = false;
+                          globalvariables.runFilter(val);
+                        }
+                        setState(() {});
+                      },
+                      onPressed: () {
+                        globalvariables.resetList();
+                        search.clear();
+                        globalvariables.clearButtonVisible = false;
+                        setState(() {});
+                      },
+                      searchEditor: search,
+                    ),
+                  ),
                   const SizedBox(
                     width: 12,
                   ),
@@ -697,6 +720,7 @@ class _HomePageState extends State<HomePage> {
                           index: i,
                           onTap: () {
                             globalvariables.clearSpecific(i);
+                            globalvariables.resetList();
                             setState(() {});
                           },
                         ),
@@ -732,6 +756,7 @@ class _HomePageState extends State<HomePage> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
+                                    globalvariables.resetList();
                                     globalvariables.clearData();
                                   });
                                 },
@@ -804,39 +829,35 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: Container(
-                  //color: Colors.amber,
-                  //width: width,
-                  child: FutureBuilder<Filter>(
-                      future: driverInfo,
-                      builder: (BuildContext context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text(snapshot.error.toString()),
-                          );
-                        }
-                        if (snapshot.hasData) {
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: snapshot.data!.data?.length,
-                              itemBuilder: (BuildContext context, i) {
-                                return Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: DriverProfileCard(
-                                        height,
-                                        width,
-                                        snapshot.data!.data![i].driverImage,
-                                        snapshot.data!.data![i].driverName,
-                                        snapshot.data!.data![i].carNumber,
-                                        snapshot.data!.data![i].shiftDateTime,
-                                        snapshot.data!.data![i].status));
-                              });
-                        }
-                        return Center(child: const CircularProgressIndicator());
-                      }),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  child: Container(
+                    //color: Colors.amber,
+                    //width: width,
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: _globalVariables.filterDriverInfo.length,
+                        itemBuilder: (BuildContext context, i) {
+                          return Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: DriverProfileCard(
+                                  height,
+                                  width,
+                                  // snapshot.data!.data![i].driverImage,
+                                  _globalVariables.filterDriverInfo[i]
+                                      ['driver_image'],
+                                  _globalVariables.filterDriverInfo[i]
+                                      ['driver_name'],
+                                  _globalVariables.filterDriverInfo[i]
+                                      ['car_number'],
+                                  _globalVariables.filterDriverInfo[i]
+                                      ['shift_start_date'],
+                                  _globalVariables.filterDriverInfo[i]
+                                      ['status']));
+                        }),
+                  ),
                 ),
               ),
             )

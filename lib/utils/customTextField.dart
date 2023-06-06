@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:test_assignment/globalVariables.dart';
+import 'package:test_assignment/model/index.dart';
 
 class CustomTextField extends StatefulWidget {
-  const CustomTextField({Key? key}) : super(key: key);
-
+  CustomTextField(
+      {Key? key,
+      required this.onChanged,
+      required this.onPressed,
+      required this.searchEditor})
+      : super(key: key);
+  final onChanged;
+  final searchEditor;
+  final onPressed;
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-  bool clearButtonVisible = false;
   IconData? suffixIcon;
   TextEditingController search = TextEditingController();
   @override
@@ -28,7 +35,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       onFieldSubmitted: (value) {
         if (globalvariables.options.isNotEmpty) {
           globalvariables.replace(value.toString().trim());
-          //globalvariables.addData(value.toString().trim());
+          globalvariables.runFilter(value);
           globalvariables.isVisible = true;
         } else if (globalvariables.options.isEmpty) {
           globalvariables.addData(value.toString().trim());
@@ -36,42 +43,23 @@ class _CustomTextFieldState extends State<CustomTextField> {
         } else {
           globalvariables.isVisible = false;
         }
-        search.clear();
+        widget.searchEditor.clear();
         setState(() {
-          clearButtonVisible = false;
+          globalvariables.clearButtonVisible = false;
         });
       },
-      onChanged: (val) {
-        if (val.toString().trim() == "") {
-          setState(() {
-            clearButtonVisible = false;
-          });
-        } else if (val.isNotEmpty) {
-          setState(() {
-            clearButtonVisible = true;
-          });
-        } else {
-          setState(() {
-            clearButtonVisible = false;
-          });
-        }
-      },
-      controller: search,
+      onChanged: widget.onChanged,
+      controller: widget.searchEditor,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.fromLTRB(12, 6, 10, 12),
         hintText: "Search",
         border: InputBorder.none,
         fillColor: Colors.black,
         prefixIcon: Icon(Icons.search),
-        suffixIcon: !clearButtonVisible
+        suffixIcon: !globalvariables.clearButtonVisible
             ? null
             : IconButton(
-                onPressed: () {
-                  setState(() {
-                    search.clear();
-                    clearButtonVisible = false;
-                  });
-                },
+                onPressed: widget.onPressed,
                 icon: Icon(Icons.clear),
               ),
       ),
