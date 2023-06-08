@@ -1,11 +1,26 @@
+import 'package:flutter/material.dart';
 import 'package:test_assignment/model/index.dart';
 
 class GlobalVariables {
   static final _globalvariables = GlobalVariables._internal();
 
   List<String> options = [];
+  List<String> options1 = [];
+  
 
   Future<Filter>? driverInfo;
+  DateTime? selectedStartDate;
+  TimeOfDay? selectedStartTime;
+
+  String chosenlicence = "";
+  String chosenDriver = "";
+
+  String startDate = "";
+  String endDate = "";
+  String startTime = "";
+  String endTime = "";
+  String license = "";
+  String driverEditor = "";
 
   bool isVisible = false;
   bool clearButtonVisible = false;
@@ -133,6 +148,13 @@ class GlobalVariables {
     "Ananta Jalil"
   ];
 
+  //TextEditingController startDate = TextEditingController();
+  //TextEditingController endDate = TextEditingController();
+  // TextEditingController startTime = TextEditingController();
+  // TextEditingController endTime = TextEditingController();
+  //TextEditingController license = TextEditingController();
+  //TextEditingController drivereditor = TextEditingController();
+
   //iterable search mechanism
   void runFilter(String searchInput) {
     if (options.isEmpty) {
@@ -159,6 +181,15 @@ class GlobalVariables {
       }
     }
   }
+
+  // void clearText() {
+  //   startDate.clear();
+  //   endDate.clear();
+  //   startTime.clear();
+  //   endTime.clear();
+  //   driver.clear();
+  //   license.clear();
+  // }
 
   //Reset list view onPressed chip cancel button
   void resetList() {

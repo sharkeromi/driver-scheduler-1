@@ -18,7 +18,7 @@ class _CustomFilterChipsState extends State<CustomFilterChips> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(right: 8),
+        padding: const EdgeInsets.only(right: 8, bottom: 8),
         child: Container(
           height: 32,
           decoration: BoxDecoration(
