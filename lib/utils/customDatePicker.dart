@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:test_assignment/globalVariables.dart';
 
 class CustomDatePicker extends StatefulWidget {
@@ -53,8 +54,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
               if (widget.isInitialDateTime) {
                 globalvariables.selectedStartDate = selectedDate;
               } else {}
-              widget.dateortimepicker =
-                  formatDate(pickStartDate, [dd, ".", " ", MM, " ", yyyy]);
+              widget.dateortimepicker = RxString(
+                  formatDate(pickStartDate, [dd, ".", " ", MM, " ", yyyy]));
               globalvariables.addData(widget.dateortimepicker);
             });
           }
@@ -84,10 +85,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           labelText(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              boxText(),
-              widget.iconData
-            ],
+            children: [boxText(), widget.iconData],
           ),
           const SizedBox(
             height: 2,
@@ -102,7 +100,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   }
 
   labelText() {
-    if (widget.dateortimepicker == "") {
+    if (widget.dateortimepicker.toString() == "") {
       return const SizedBox(height: 14);
     } else {
       return SizedBox(
@@ -118,7 +116,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   }
 
   boxText() {
-    if (widget.dateortimepicker == "") {
+    if (widget.dateortimepicker.toString() == "") {
+      print('empty');
       return Text(widget.boxTextString,
           style: TextStyle(
             fontSize: 14,
@@ -127,7 +126,8 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
             //fontWeight: FontWeight.w500
           ));
     } else {
-      return Text(widget.dateortimepicker,
+      print('not empty');
+      return Text(widget.dateortimepicker.toString(),
           style: TextStyle(
             fontSize: 14,
             fontFamily: 'Euclid Regular',

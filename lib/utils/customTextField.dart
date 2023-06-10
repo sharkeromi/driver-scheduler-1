@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:test_assignment/globalVariables.dart';
 import 'package:test_assignment/model/index.dart';
 
@@ -38,7 +39,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           globalvariables.runFilter(value);
           globalvariables.isVisible = true;
         } else if (globalvariables.options.isEmpty) {
-          globalvariables.addData(value.toString().trim());
+          globalvariables.addData(RxString(value.toString().trim()));
           globalvariables.isVisible = true;
         } else {
           globalvariables.isVisible = false;

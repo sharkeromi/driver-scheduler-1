@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:test_assignment/model/index.dart';
 
-class GlobalVariables {
+class GlobalVariables extends GetxController {
   static final _globalvariables = GlobalVariables._internal();
 
-  List<String> options = [];
+  RxList options = [].obs;
   List<String> options1 = [];
-  
 
   Future<Filter>? driverInfo;
   DateTime? selectedStartDate;
   TimeOfDay? selectedStartTime;
 
-  String chosenlicence = "";
-  String chosenDriver = "";
+  RxString chosenlicence = "".obs;
+  RxString chosenDriver = "".obs;
 
-  String startDate = "";
+  RxString startDate = "".obs;
   String endDate = "";
   String startTime = "";
   String endTime = "";
-  String license = "";
-  String driverEditor = "";
+  RxString license = "".obs;
+  RxString driverEditor = "".obs;
 
   bool isVisible = false;
   bool clearButtonVisible = false;
@@ -132,21 +132,17 @@ class GlobalVariables {
       'shift_end_time': "05:30",
       'shift_date_time': "08:30, 28, April 2023"
     },
-  ];
+  ].obs;
 
   List<String> licenseNo = [
     "Toyota/97-666",
     "Toyota/122476",
     "Toyota/552738",
     "Toyota/ABC827838"
-  ];
+  ].obs;
 
-  List<String> driver = [
-    "Peter Griffin",
-    "Stewie Griffin",
-    "Glen Quagmire",
-    "Ananta Jalil"
-  ];
+  List<String> driver =
+      ["Peter Griffin", "Stewie Griffin", "Glen Quagmire", "Ananta Jalil"].obs;
 
   //TextEditingController startDate = TextEditingController();
   //TextEditingController endDate = TextEditingController();
@@ -194,14 +190,16 @@ class GlobalVariables {
   //Reset list view onPressed chip cancel button
   void resetList() {
     filterDriverInfo = datalist;
+    update();
   }
 
   //add data to chip
-  void addData(String newData) {
+  void addData(RxString newData) {
     if (newData.toString().trim() == "") {
     } else {
       options.add(newData);
     }
+    update();
   }
 
   //replace chip
@@ -221,7 +219,7 @@ class GlobalVariables {
   //clear specific chip
   void clearSpecific(specificDataIndex) {
     options.removeAt(specificDataIndex);
-    print(options);
+    update();
   }
 
   factory GlobalVariables() {

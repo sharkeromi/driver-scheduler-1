@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:get/get.dart';
 import 'package:test_assignment/globalVariables.dart';
 import 'package:test_assignment/screens/filterPopUp.dart';
 
@@ -85,7 +86,7 @@ class _CustomDriverCarPickerState extends State<CustomDriverCarPicker> {
             //fontWeight: FontWeight.w500
           ));
     } else {
-      return Text(widget.driverorcarpicker,
+      return Text(widget.driverorcarpicker.toString(),
           style: TextStyle(
             fontSize: 14,
             fontFamily: 'Euclid Regular',
