@@ -15,7 +15,7 @@ class CustomDatePicker extends StatefulWidget {
       : super(key: key);
 
   var boxTextString;
-  var dateortimepicker;
+  RxString dateortimepicker;
   var dateortime;
   bool isInitialDateTime;
   var iconData;
@@ -25,77 +25,98 @@ class CustomDatePicker extends StatefulWidget {
 }
 
 class _CustomDatePickerState extends State<CustomDatePicker> {
-  DateTime? selectedDate;
+  DateTime selectedDate = DateTime.now();
+
   TimeOfDay? selectedTime;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       style: const ButtonStyle(
-          // padding:
-          //     MaterialStatePropertyAll<EdgeInsetsGeometry>(EdgeInsets.zero),
           shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(7))))),
       onPressed: () async {
-        if (widget.dateortime == "date") {
-          //pickStartDate =initalDateChecker(pickStartDate);
-
+        if (widget.dateortime == "date" && widget.isInitialDateTime) {
           DateTime? pickStartDate = await showDatePicker(
               context: context,
-              initialDate: globalvariables.selectedStartDate ??
-                  selectedDate ??
-                  DateTime.now(),
-              firstDate: DateTime(2000),
+              initialDate: globalvariables.selectedStartDate.value,
+              firstDate:
+                  globalvariables.firstDateforEndDate.value ?? DateTime(2000),
               lastDate: DateTime(2101));
           if (pickStartDate != null) {
-            setState(() {
-              selectedDate = pickStartDate;
-              if (widget.isInitialDateTime) {
-                globalvariables.selectedStartDate = selectedDate;
-              } else {}
+            globalvariables.selectedStartDate.value = pickStartDate;
+            widget.dateortimepicker = RxString(
+                formatDate(pickStartDate, [dd, ".", " ", MM, " ", yyyy]));
+            globalvariables.addData(widget.dateortimepicker);
+            if (pickStartDate.isAfter(globalvariables.selectedEndDate.value)) {
+              globalvariables.endDate.value = '';
+            }
+          }
+        } else if (widget.dateortime == "date" && !widget.isInitialDateTime) {
+          print('here');
+          DateTime? pickStartDate = await showDatePicker(
+              context: context,
+              initialDate: globalvariables.selectedEndDate.value
+                      .isAfter(globalvariables.selectedStartDate.value)
+                  ? globalvariables.selectedEndDate.value
+                  : globalvariables.selectedStartDate.value,
+              firstDate: globalvariables.selectedStartDate.value,
+              lastDate: DateTime(2101));
+          if (pickStartDate != null) {
+            if (pickStartDate
+                .isAfter(globalvariables.selectedStartDate.value)) {
+              globalvariables.selectedEndDate.value = pickStartDate;
               widget.dateortimepicker = RxString(
                   formatDate(pickStartDate, [dd, ".", " ", MM, " ", yyyy]));
+              globalvariables.endDate.value = widget.dateortimepicker.value;
               globalvariables.addData(widget.dateortimepicker);
-            });
+            }
           }
         } else if (widget.dateortime == "time") {
           TimeOfDay? pickTime = await showTimePicker(
               context: context,
-              initialTime: globalvariables.selectedStartTime ??
-                  selectedTime ??
-                  TimeOfDay(hour: 12, minute: 00));
+              initialTime: globalvariables.selectedStartDate.value
+                      .isAtSameMomentAs(DateTime.now())
+                  ? TimeOfDay.now()
+                  : globalvariables.selectedStartTime.value ??
+                      selectedTime ??
+                      TimeOfDay(hour: 12, minute: 00));
           if (pickTime != null) {
             setState(() {
               selectedTime = pickTime;
               if (widget.isInitialDateTime) {
-                globalvariables.selectedStartTime = selectedTime;
+                globalvariables.selectedStartTime.value = selectedTime;
               }
-              widget.dateortimepicker =
+              widget.dateortimepicker.value =
                   '${pickTime.hour.toString()}:${pickTime.minute.toString()}';
               globalvariables.addData(widget.dateortimepicker);
             });
           }
         }
       },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          labelText(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [boxText(), widget.iconData],
-          ),
-          const SizedBox(
-            height: 2,
-          ),
-          const Divider(
-            thickness: 2,
-            color: Colors.grey,
-          )
-        ],
-      ),
+      child: GetBuilder<GlobalVariables>(
+          init: GlobalVariables(),
+          builder: (globalvariables) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                labelText(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [boxText(), widget.iconData],
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                const Divider(
+                  thickness: 2,
+                  color: Colors.grey,
+                )
+              ],
+            );
+          }),
     );
   }
 
@@ -117,18 +138,18 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
 
   boxText() {
     if (widget.dateortimepicker.toString() == "") {
-      print('empty');
+      // print('empty');
       return Text(widget.boxTextString,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontFamily: 'Euclid Regular',
             color: Colors.black,
             //fontWeight: FontWeight.w500
           ));
     } else {
-      print('not empty');
+      // print(widget.dateortimepicker);
       return Text(widget.dateortimepicker.toString(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontFamily: 'Euclid Regular',
             color: Colors.black,

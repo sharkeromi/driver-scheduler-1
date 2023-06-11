@@ -42,7 +42,7 @@ class _CustomDriverCarPickerState extends State<CustomDriverCarPicker> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               boxText(),
-              Icon(
+              const Icon(
                 Icons.chevron_right_rounded,
                 color: Color(0xff7488A6),
               )
@@ -67,7 +67,7 @@ class _CustomDriverCarPickerState extends State<CustomDriverCarPicker> {
       return SizedBox(
         height: 14,
         child: Text(widget.boxTextString,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 10,
                 fontFamily: 'Euclid',
                 color: Colors.grey,
@@ -79,7 +79,7 @@ class _CustomDriverCarPickerState extends State<CustomDriverCarPicker> {
   boxText() {
     if (widget.driverorcarpicker == "") {
       return Text(widget.boxTextString,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontFamily: 'Euclid Regular',
             color: Colors.black,
@@ -87,7 +87,7 @@ class _CustomDriverCarPickerState extends State<CustomDriverCarPicker> {
           ));
     } else {
       return Text(widget.driverorcarpicker.toString(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontFamily: 'Euclid Regular',
             color: Colors.black,

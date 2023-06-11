@@ -9,16 +9,19 @@ class GlobalVariables extends GetxController {
   List<String> options1 = [];
 
   Future<Filter>? driverInfo;
-  DateTime? selectedStartDate;
-  TimeOfDay? selectedStartTime;
+  //DateTime? selectedStartDate;
+  Rx<DateTime> selectedStartDate = Rx<DateTime>(DateTime.now());
+  Rx<DateTime> selectedEndDate = Rx<DateTime>(DateTime.now());
+  Rx<TimeOfDay?> selectedStartTime = Rx<TimeOfDay?>(null);
+  Rx<DateTime?> firstDateforEndDate = Rx<DateTime?>(null);
 
-  RxString chosenlicence = "".obs;
+  RxString chosenlicence = RxString("");
   RxString chosenDriver = "".obs;
 
   RxString startDate = "".obs;
-  String endDate = "";
-  String startTime = "";
-  String endTime = "";
+  RxString endDate = "".obs;
+  RxString startTime = "".obs;
+  RxString endTime = "".obs;
   RxString license = "".obs;
   RxString driverEditor = "".obs;
 

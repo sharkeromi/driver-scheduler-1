@@ -71,36 +71,38 @@ class FilterPopUp {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GetBuilder<GlobalVariables>(
-                            init: GlobalVariables(),
-                            builder: (globalvariables) {
-                              return SizedBox(
-                                  height: height * 0.1,
-                                  width: (width - 48) / 2,
-                                  child: CustomDatePicker(
-                                    boxTextString: "Start Date",
-                                    dateortimepicker: globalvariables.startDate,
-                                    dateortime: "date",
-                                    isInitialDateTime: true,
-                                    iconData: const Icon(
-                                      Icons.date_range_rounded,
-                                      color: Color(0xff7488A6),
-                                    ),
-                                  ));
-                            }),
                         SizedBox(
                             height: height * 0.1,
                             width: (width - 48) / 2,
                             child: CustomDatePicker(
+                              boxTextString: "Start Date",
+                              dateortimepicker: globalvariables.startDate,
+                              dateortime: "date",
+                              isInitialDateTime: true,
                               iconData: const Icon(
                                 Icons.date_range_rounded,
                                 color: Color(0xff7488A6),
                               ),
-                              boxTextString: "End Date",
-                              dateortimepicker: globalvariables.endDate,
-                              dateortime: "date",
-                              isInitialDateTime: false,
-                            ))
+                            )),
+                        GetBuilder<GlobalVariables>(
+                            init: GlobalVariables(),
+                            //initState: (_) {},
+                            builder: (globalvariables) {
+                              return SizedBox(
+                                height: height * 0.1,
+                                width: (width - 48) / 2,
+                                child: CustomDatePicker(
+                                  iconData: const Icon(
+                                    Icons.date_range_rounded,
+                                    color: Color(0xff7488A6),
+                                  ),
+                                  boxTextString: "End Date",
+                                  dateortimepicker: globalvariables.endDate,
+                                  dateortime: "date",
+                                  isInitialDateTime: false,
+                                ),
+                              );
+                            })
                       ],
                     ),
                     Row(
@@ -120,19 +122,25 @@ class FilterPopUp {
                             ),
                           ),
                         ),
-                        SizedBox(
-                            height: height * 0.1,
-                            width: (width - 48) / 2,
-                            child: CustomDatePicker(
-                              iconData: const Icon(
-                                Icons.watch_later_rounded,
-                                color: Color(0xff7488A6),
-                              ),
-                              dateortime: "time",
-                              dateortimepicker: globalvariables.endTime,
-                              boxTextString: "End Time",
-                              isInitialDateTime: false,
-                            )),
+                        GetBuilder<GlobalVariables>(
+                          init: GlobalVariables(),
+                          //initState: (_) {},
+                          builder: (globalvariables) {
+                            return SizedBox(
+                                height: height * 0.1,
+                                width: (width - 48) / 2,
+                                child: CustomDatePicker(
+                                  iconData: const Icon(
+                                    Icons.watch_later_rounded,
+                                    color: Color(0xff7488A6),
+                                  ),
+                                  dateortime: "time",
+                                  dateortimepicker: globalvariables.endTime,
+                                  boxTextString: "End Time",
+                                  isInitialDateTime: false,
+                                ));
+                          },
+                        ),
                       ],
                     ),
                     GetBuilder<GlobalVariables>(
@@ -291,37 +299,43 @@ class FilterPopUp {
                             child: ListView.builder(
                                 itemCount: testGlobalariables.licenseNo.length,
                                 itemBuilder: (context, i) {
-                                  return Padding(
-                                    padding: EdgeInsets.all(8),
-                                    child: Container(
-                                      height: height * 0.035,
-                                      width: width * 0.4,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(testGlobalariables.licenseNo[i],
-                                              style: TextStyle(
-                                                  fontFamily: 'Euclid Regular',
-                                                  fontSize: 18)),
-                                          Radio(
-                                            value: i,
-                                            groupValue: testGlobalariables
-                                                .chosenlicence,
-                                            onChanged: (value) {
-                                              testGlobalariables.chosenlicence =
-                                                  RxString(i.toString());
-                                              testGlobalariables.license =
-                                                  RxString(testGlobalariables
-                                                      .licenseNo[i]);
-                                              testGlobalariables.addData(
-                                                  testGlobalariables.license);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return Obx(() => Padding(
+                                        padding: EdgeInsets.all(8),
+                                        child: Container(
+                                          height: height * 0.035,
+                                          width: width * 0.4,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                  testGlobalariables
+                                                      .licenseNo[i],
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'Euclid Regular',
+                                                      fontSize: 18)),
+                                              Radio(
+                                                value: i,
+                                                groupValue: testGlobalariables
+                                                    .chosenlicence,
+                                                onChanged: (value) {
+                                                  testGlobalariables
+                                                          .chosenlicence =
+                                                      RxString(i.toString());
+                                                  testGlobalariables.license =
+                                                      RxString(
+                                                          testGlobalariables
+                                                              .licenseNo[i]);
+                                                  testGlobalariables.addData(
+                                                      testGlobalariables
+                                                          .license);
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ));
                                 }),
                           ),
                           Center(
