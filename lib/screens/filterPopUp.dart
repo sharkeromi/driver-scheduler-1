@@ -1,7 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_assignment/globalVariables.dart';
+import 'package:test_assignment/consts/globalVariables.dart';
 import 'package:test_assignment/screens/homepage.dart';
 import 'package:test_assignment/utils/customDatePicker.dart';
 import 'package:test_assignment/utils/customDriverCarPicker.dart';

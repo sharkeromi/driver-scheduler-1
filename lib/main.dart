@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_assignment/screens/homepage.dart';
+import 'package:test_assignment/screens/homepageBeta.dart';
 import 'package:test_assignment/screens/login.dart';
 import 'package:test_assignment/screens/loginBeta.dart';
 
@@ -18,13 +19,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(240, 46, 47, 47)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(240, 46, 47, 47)),
         useMaterial3: true,
       ),
-      //home: const LogInScreen(),
-      //home: const HomePage()
-      home:  LogInScreenBeta(),
+      home: LogInScreenBeta(),
+      //home: HomePageBeta(),
     );
   }
 }

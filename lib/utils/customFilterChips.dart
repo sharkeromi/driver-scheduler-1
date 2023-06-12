@@ -3,7 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
-import 'package:test_assignment/globalVariables.dart';
+import 'package:test_assignment/consts/globalVariables.dart';
 
 class CustomFilterChips extends StatefulWidget {
   const CustomFilterChips({Key? key, required this.index, required this.onTap})

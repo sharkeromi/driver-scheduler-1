@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_assignment/globalVariables.dart';
+import 'package:test_assignment/consts/globalVariables.dart';
 
 class CustomDatePicker extends StatefulWidget {
   CustomDatePicker(

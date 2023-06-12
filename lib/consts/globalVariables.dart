@@ -5,6 +5,8 @@ import 'package:test_assignment/model/index.dart';
 class GlobalVariables extends GetxController {
   static final _globalvariables = GlobalVariables._internal();
 
+
+
   RxList options = [].obs;
   List<String> options1 = [];
 
@@ -28,9 +30,11 @@ class GlobalVariables extends GetxController {
   bool isVisible = false;
   bool clearButtonVisible = false;
 
-  List<Map<String, dynamic>> filterDriverInfo = [];
-  List<Map<String, dynamic>> temp = [];
-  List<Map<String, dynamic>> datalist = [
+  // NOT USED IN BETA
+  RxList filterDriverInfo = RxList([]);
+
+  RxList temp = [].obs;
+  List datalist = [
     {
       'id': 1,
       'status': "init",
@@ -158,10 +162,10 @@ class GlobalVariables extends GetxController {
   void runFilter(String searchInput) {
     if (options.isEmpty) {
       if (searchInput.trim() == "") {
-        filterDriverInfo = datalist;
+        filterDriverInfo.value = datalist;
         temp = filterDriverInfo;
       } else {
-        filterDriverInfo = datalist
+        filterDriverInfo.value = datalist
             .where((element) => element["driver_name"]
                 .toLowerCase()
                 .contains(searchInput.toLowerCase().trim()))
@@ -170,9 +174,9 @@ class GlobalVariables extends GetxController {
       }
     } else {
       if (searchInput.trim() == "") {
-        filterDriverInfo = temp;
+        filterDriverInfo.value = temp;
       } else {
-        filterDriverInfo = filterDriverInfo
+        filterDriverInfo.value = filterDriverInfo
             .where((element) => element["driver_name"]
                 .toLowerCase()
                 .contains(searchInput.toLowerCase().trim()))
@@ -192,7 +196,7 @@ class GlobalVariables extends GetxController {
 
   //Reset list view onPressed chip cancel button
   void resetList() {
-    filterDriverInfo = datalist;
+    filterDriverInfo.value = datalist;
     update();
   }
 

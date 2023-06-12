@@ -4,7 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
-import 'package:test_assignment/globalVariables.dart';
+import 'package:test_assignment/consts/globalVariables.dart';
 import 'package:test_assignment/screens/filterPopUp.dart';
 
 class CustomDriverCarPicker extends StatefulWidget {

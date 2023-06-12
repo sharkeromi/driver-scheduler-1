@@ -1,10 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test_assignment/screens/homepage.dart';
-import 'package:test_assignment/utils/apiHandler.dart';
+import 'package:test_assignment/screens/homepageBeta.dart';
+import 'package:test_assignment/controllers/apiHandler.dart';
 
 class LoginHandler extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -24,7 +23,7 @@ class LoginHandler extends GetxController {
       print(body['data']['token']);
       SharedPreferences pref = await SharedPreferences.getInstance();
       pref.setString('token', body['data']['token']);
-      Get.to(() => HomePage());
+      Get.to(() => HomePageBeta());
     } else {
       //errorSnackBar(context, body['message']);
     }

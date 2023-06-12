@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_assignment/globalVariables.dart';
+import 'package:test_assignment/consts/globalVariables.dart';
 import 'package:test_assignment/model/index.dart';
 import 'package:test_assignment/screens/filterPopUp.dart';
-import 'package:test_assignment/utils/apiHandler.dart';
+import 'package:test_assignment/controllers/apiHandler.dart';
 import 'package:test_assignment/utils/customFilterChips.dart';
 import 'package:test_assignment/utils/customTextField.dart';
 import 'package:test_assignment/utils/driverProfileCard.dart';
@@ -15,10 +15,10 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class AlwaysDisabledFocusNode extends FocusNode {
-  @override
-  bool get hasFocus => false;
-}
+// class AlwaysDisabledFocusNode extends FocusNode {
+//   @override
+//   bool get hasFocus => false;
+// }
 
 class _HomePageState extends State<HomePage> {
   GlobalVariables _globalVariables = new GlobalVariables();
@@ -26,7 +26,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    globalvariables.filterDriverInfo = globalvariables.datalist;
+    // commented for new_project_getx
+    //globalvariables.filterDriverInfo = globalvariables.datalist;
   }
 
   getData() async {
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                                 onTap: () {
                                   globalvariables.clearSpecific(i);
                                   globalvariables.resetList();
-                                //  setState(() {});
+                                  //  setState(() {});
                                 },
                               ),
                             Container(
@@ -275,7 +276,7 @@ class _HomePageState extends State<HomePage> {
                               itemBuilder: (BuildContext context, i) {
                                 return Padding(
                                     padding: const EdgeInsets.only(top: 10),
-                                    child: DriverProfileCard(
+                                    child: driverProfileCard(
                                         height,
                                         width,
                                         // snapshot.data!.data![i].driverImage,

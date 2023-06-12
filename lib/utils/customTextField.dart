@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_assignment/globalVariables.dart';
+import 'package:test_assignment/consts/globalVariables.dart';
 import 'package:test_assignment/model/index.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -19,7 +19,7 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   IconData? suffixIcon;
-  TextEditingController search = TextEditingController();
+  
   @override
   void initState() {
     super.initState();

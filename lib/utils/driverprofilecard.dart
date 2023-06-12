@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget DriverProfileCard(
+Widget driverProfileCard(
     height, width, imageUrl, driverName, carNumber, shiftDateTime, status) {
   return Container(
     height: 71,

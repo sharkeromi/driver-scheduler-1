@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:test_assignment/utils/loginHandlerBeta.dart';
+import 'package:test_assignment/controllers/loginHandlerBeta.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LogInScreenBeta extends StatelessWidget {
   LogInScreenBeta({Key? key}) : super(key: key);
@@ -72,8 +73,20 @@ class LogInScreenBeta extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           _loginHandler.isLoading.value
-                              ? const CircularProgressIndicator(
-                                  color: Colors.white,
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: const [
+                                    Text("Logging In...",
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            color: Colors.white,
+                                            fontFamily: 'Euclid')),
+                                    SizedBox(width: 5),
+                                    SpinKitPouringHourGlass(
+                                        size: 25, color: Colors.white),
+                                  ],
                                 )
                               : const Text("Log In",
                                   style: TextStyle(
