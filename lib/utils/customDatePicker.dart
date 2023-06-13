@@ -83,15 +83,17 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                       selectedTime ??
                       TimeOfDay(hour: 12, minute: 00));
           if (pickTime != null) {
-            setState(() {
-              selectedTime = pickTime;
-              if (widget.isInitialDateTime) {
-                globalvariables.selectedStartTime.value = selectedTime;
-              }
-              widget.dateortimepicker.value =
-                  '${pickTime.hour.toString()}:${pickTime.minute.toString()}';
-              globalvariables.addData(widget.dateortimepicker);
-            });
+            setState(
+              () {
+                selectedTime = pickTime;
+                if (widget.isInitialDateTime) {
+                  globalvariables.selectedStartTime.value = selectedTime;
+                }
+                widget.dateortimepicker.value =
+                    '${pickTime.hour.toString()}:${pickTime.minute.toString()}';
+                globalvariables.addData(widget.dateortimepicker);
+              },
+            );
           }
         }
       },

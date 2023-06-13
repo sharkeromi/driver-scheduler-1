@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_assignment/consts/globalVariables.dart';
+import 'package:test_assignment/screens/filterPopUp.dart';
 import 'package:test_assignment/utils/chipSection.dart';
 import 'package:test_assignment/utils/customTextFieldBeta.dart';
 import 'package:test_assignment/utils/listViewDriver.dart';
@@ -8,6 +9,7 @@ class HomePageBeta extends StatelessWidget {
   HomePageBeta({Key? key}) : super(key: key);
 
   //ListViewHandler listViewController = Get.put(ListViewHandler());
+  FilterPopUp filterPopUp = new FilterPopUp();
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +55,21 @@ class HomePageBeta extends StatelessWidget {
                     width: 12,
                   ),
                   // FILTER BUTTON
-                  Container(
-                    height: 40,
-                    width: width * 0.1,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: const Color(0xffF89818),
-                    ),
-                    child: const Icon(
-                      Icons.tune,
-                      color: Colors.white,
+                  InkWell(
+                    onTap: () {
+                      filterPopUp.filterPopUp1(context, height, width);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: width * 0.1,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: const Color(0xffF89818),
+                      ),
+                      child: const Icon(
+                        Icons.tune,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   // HERE
@@ -70,7 +77,7 @@ class HomePageBeta extends StatelessWidget {
               ),
             ),
             // FILTERED CHIPS
-             ChipSection(),
+            ChipSection(),
             // HERE
             const Align(
               alignment: Alignment.centerLeft,

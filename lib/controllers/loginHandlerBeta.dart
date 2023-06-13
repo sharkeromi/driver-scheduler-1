@@ -9,7 +9,7 @@ class LoginHandler extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool passwordVisible = true.obs;
-  RxBool isLoading = false.obs;
+  final RxBool isLoading = RxBool(false);
 
   Future<void> login() async {
     isLoading.value = true;
@@ -19,14 +19,16 @@ class LoginHandler extends GetxController {
     };
     var res = await api().postData(credentials, '/auth/login');
     var body = json.decode(res.body);
-    if (res.statusCode == 200) {
-      print(body['data']['token']);
+    print(res.body);
+    if (body['code'] == 200) {
+      print(body);
       SharedPreferences pref = await SharedPreferences.getInstance();
       pref.setString('token', body['data']['token']);
-      Get.to(() => HomePageBeta());
+      Get.offAll(() => HomePageBeta());
     } else {
-      //errorSnackBar(context, body['message']);
+      print(body['code']);
     }
+    isLoading.value = false;
     update();
   }
 

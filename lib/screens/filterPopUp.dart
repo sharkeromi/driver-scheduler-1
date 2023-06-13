@@ -1,13 +1,15 @@
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_assignment/consts/globalVariables.dart';
-import 'package:test_assignment/screens/homepage.dart';
+import 'package:test_assignment/controllers/dateTimeHandler.dart';
 import 'package:test_assignment/utils/customDatePicker.dart';
+import 'package:test_assignment/utils/customDatePickerBeta.dart';
 import 'package:test_assignment/utils/customDriverCarPicker.dart';
+import 'package:test_assignment/utils/customTimePickerBeta.dart';
 
 class FilterPopUp {
-  filterPopUp1(context, height, width, onTap) {
+  DateTimeHandler dateTimeController = Get.put(DateTimeHandler());
+  filterPopUp1(context, height, width) {
     showDialog(
         context: context,
         builder: (context) {
@@ -34,9 +36,6 @@ class FilterPopUp {
                             child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            // const SizedBox(
-                            //   width: 10,
-                            // ),
                             const Text("Filter",
                                 style: TextStyle(
                                     fontSize: 20,
@@ -45,9 +44,10 @@ class FilterPopUp {
                             const SizedBox(
                               width: 10,
                             ),
-                            GestureDetector(
+                            InkWell(
                                 onTap: () {
                                   // globalvariables.clearText();
+                                  dateTimeController.clearData();
                                 },
                                 child: const Text("Clear",
                                     style: TextStyle(
@@ -72,37 +72,29 @@ class FilterPopUp {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                            height: height * 0.1,
-                            width: (width - 48) / 2,
-                            child: CustomDatePicker(
-                              boxTextString: "Start Date",
-                              dateortimepicker: globalvariables.startDate,
-                              dateortime: "date",
-                              isInitialDateTime: true,
-                              iconData: const Icon(
-                                Icons.date_range_rounded,
-                                color: Color(0xff7488A6),
-                              ),
-                            )),
-                        GetBuilder<GlobalVariables>(
-                            init: GlobalVariables(),
-                            //initState: (_) {},
-                            builder: (globalvariables) {
-                              return SizedBox(
-                                height: height * 0.1,
-                                width: (width - 48) / 2,
-                                child: CustomDatePicker(
-                                  iconData: const Icon(
-                                    Icons.date_range_rounded,
-                                    color: Color(0xff7488A6),
-                                  ),
-                                  boxTextString: "End Date",
-                                  dateortimepicker: globalvariables.endDate,
-                                  dateortime: "date",
-                                  isInitialDateTime: false,
-                                ),
-                              );
-                            })
+                          height: height * 0.1,
+                          width: (width - 48) / 2,
+                          child: CustomDatePickerBeta(
+                            datePicker: dateTimeController.startDate,
+                            boxTextString: "Start Date",
+                            iconData: const Icon(
+                              Icons.date_range_rounded,
+                              color: Color(0xff7488A6),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: height * 0.1,
+                          width: (width - 48) / 2,
+                          child: CustomDatePickerBeta(
+                            datePicker: dateTimeController.endDate,
+                            iconData: const Icon(
+                              Icons.date_range_rounded,
+                              color: Color(0xff7488A6),
+                            ),
+                            boxTextString: "End Date",
+                          ),
+                        ),
                       ],
                     ),
                     Row(
@@ -111,36 +103,27 @@ class FilterPopUp {
                         SizedBox(
                           height: height * 0.1,
                           width: (width - 48) / 2,
-                          child: CustomDatePicker(
-                            dateortime: "time",
-                            dateortimepicker: globalvariables.startTime,
+                          child: CustomTimePickerBeta(
+                            timePicker: dateTimeController.startTime,
                             boxTextString: "Start Time",
-                            isInitialDateTime: true,
                             iconData: const Icon(
                               Icons.watch_later_rounded,
                               color: Color(0xff7488A6),
                             ),
                           ),
                         ),
-                        GetBuilder<GlobalVariables>(
-                          init: GlobalVariables(),
-                          //initState: (_) {},
-                          builder: (globalvariables) {
-                            return SizedBox(
-                                height: height * 0.1,
-                                width: (width - 48) / 2,
-                                child: CustomDatePicker(
-                                  iconData: const Icon(
-                                    Icons.watch_later_rounded,
-                                    color: Color(0xff7488A6),
-                                  ),
-                                  dateortime: "time",
-                                  dateortimepicker: globalvariables.endTime,
-                                  boxTextString: "End Time",
-                                  isInitialDateTime: false,
-                                ));
-                          },
-                        ),
+                        SizedBox(
+                          height: height * 0.1,
+                          width: (width - 48) / 2,
+                          child: CustomTimePickerBeta(
+                            iconData: const Icon(
+                              Icons.watch_later_rounded,
+                              color: Color(0xff7488A6),
+                            ),
+                            timePicker: dateTimeController.endTime,
+                            boxTextString: "End Time",
+                          ),
+                        )
                       ],
                     ),
                     GetBuilder<GlobalVariables>(
@@ -158,41 +141,28 @@ class FilterPopUp {
                               ));
                         }),
                     GetBuilder<GlobalVariables>(
-                        init: GlobalVariables(),
-                        builder: (globalvariables) {
-                          return SizedBox(
-                              height: height * 0.1,
-                              //width: width - 60,
-                              child: CustomDriverCarPicker(
-                                boxTextString: "Select Driver",
-                                driverorcarpicker: globalvariables.driverEditor,
-                                onPressed: () {
-                                  filterPopUp3(context, height, width);
-                                },
-                              ));
-                        }),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(10.0),
-                    //   child: SizedBox(
-                    //       height: height * 0.09,
-                    //       width: width * 0.7,
-                    //       child: TextField(
-                    //         enableInteractiveSelection: false,
-                    //         focusNode: AlwaysDisabledFocusNode(),
-                    //         controller: globalvariables.drivereditor,
-                    //         decoration: const InputDecoration(
-                    //             suffixIcon:
-                    //                 Icon(Icons.chevron_right_rounded),
-                    //             labelText: "Select Driver"),
-                    //         onTap: () {
-                    //           filterPopUp3(context, height, width);
-                    //         },
-                    //       )),
-                    // ),
-
+                      init: GlobalVariables(),
+                      builder: (globalvariables) {
+                        return SizedBox(
+                          height: height * 0.1,
+                          //width: width - 60,
+                          child: CustomDriverCarPicker(
+                            boxTextString: "Select Driver",
+                            driverorcarpicker: globalvariables.driverEditor,
+                            onPressed: () {
+                              filterPopUp3(context, height, width);
+                            },
+                          ),
+                        );
+                      },
+                    ),
                     Center(
-                      child: GestureDetector(
-                        onTap: onTap,
+                      child: InkWell(
+                        onTap: () {
+                          globalvariables.options.value =
+                              dateTimeController.listofDateTime.value;
+                          Navigator.of(context).pop();
+                        },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 16.0, bottom: 8),
                           child: Container(
@@ -201,7 +171,7 @@ class FilterPopUp {
                             decoration: BoxDecoration(
                                 color: const Color(0xffF89818),
                                 borderRadius: BorderRadius.circular(5)),
-                            child: Center(
+                            child: const Center(
                               child: Text(
                                 "Apply",
                                 style: TextStyle(

@@ -57,11 +57,12 @@ class LogInScreenBeta extends StatelessWidget {
               const SizedBox(
                 height: 30,
               ),
-              InkWell(
-                onTap: () async {
-                  await _loginHandler.login();
-                },
-                child: Obx(() => Container(
+              Obx(
+                () => InkWell(
+                    onTap: () async {
+                      await _loginHandler.login();
+                    },
+                    child: Container(
                       height: height * 0.07,
                       width: width * 0.65,
                       decoration: BoxDecoration(

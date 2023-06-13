@@ -9,7 +9,7 @@ class api {
   postData(data, apiurl) async {
     var fullurl = _url + apiurl;
     //print('data : $data');
-    return http.post(Uri.parse(fullurl),
+    return await http.post(Uri.parse(fullurl),
         body: jsonEncode(data), headers: _setHeaders());
   }
 

@@ -117,18 +117,18 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.white,
                             ),
                             onPressed: () {
-                              filterPopUp.filterPopUp1(context, height, width,
-                                  () {
-                                setState(() {
-                                  if (globalvariables.isVisible == true) {
-                                    Navigator.of(context).pop();
-                                  } else {
-                                    globalvariables.isVisible =
-                                        !globalvariables.isVisible;
-                                    Navigator.of(context).pop();
-                                  }
-                                });
-                              });
+                              // filterPopUp.filterPopUp1(context, height, width,
+                              //     () {
+                              //   setState(() {
+                              //     if (globalvariables.isVisible == true) {
+                              //       Navigator.of(context).pop();
+                              //     } else {
+                              //       globalvariables.isVisible =
+                              //           !globalvariables.isVisible;
+                              //       Navigator.of(context).pop();
+                              //     }
+                              //   });
+                              // });
                             },
                           ),
                         )

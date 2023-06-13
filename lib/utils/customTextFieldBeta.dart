@@ -46,12 +46,8 @@ class CustomTextFieldBeta extends StatelessWidget {
           if (globalvariables.options.value.isNotEmpty) {
             filterDriverList.replace(val.toString().trim());
             filterDriverList.runFilter(val);
-            //globalvariables.isVisible = true;
           } else if (globalvariables.options.value.isEmpty) {
             globalvariables.addData(RxString(val.toString().trim()));
-            // globalvariables.isVisible = true;
-          } else {
-            //globalvariables.isVisible = false;
           }
           filterDriverList.search.clear();
           filterDriverList.clearButtonVisible.value = false;

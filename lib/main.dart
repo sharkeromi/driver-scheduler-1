@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromARGB(240, 46, 47, 47)),
         useMaterial3: true,
       ),
-      home: LogInScreenBeta(),
-      //home: HomePageBeta(),
+      //home: LogInScreenBeta(),
+      home: HomePageBeta(),
     );
   }
 }
