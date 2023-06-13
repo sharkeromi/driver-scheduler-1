@@ -29,14 +29,15 @@ class api {
     }
   }
 
-   Future<Filter> fetchDriverInfo() async {
+  Future<Filter> fetchDriverInfo() async {
     String? _token = await SharedDataManageService().getToken();
     String authorization = "Bearer $_token";
-    final response =
-        await http.get(Uri.parse('https://dev-api.limadi.dk/api/v1/shift/app/index'), headers: {
-      'content-type': 'application/json',
-      'Authorization': authorization
-    });
+    final response = await http.get(
+        Uri.parse('https://dev-api.limadi.dk/api/v1/shift/app/index'),
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': authorization
+        });
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -96,13 +97,18 @@ class api {
 
 class SharedDataManageService {
 //<======================================== Token Functionality
-  Future<bool> setToken(String value) async {
+  Future setToken(String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString('token', value);
+    prefs.setString('token', value);
   }
 
-  Future<String?> getToken() async {
+   getToken() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('token');
+  }
+
+  Future<void> removeToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
   }
 }

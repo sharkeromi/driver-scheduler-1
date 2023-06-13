@@ -4,6 +4,7 @@ import 'package:test_assignment/screens/homepage.dart';
 import 'package:test_assignment/screens/homepageBeta.dart';
 import 'package:test_assignment/screens/login.dart';
 import 'package:test_assignment/screens/loginBeta.dart';
+import 'package:test_assignment/screens/splashScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +25,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       //home: LogInScreenBeta(),
-      home: HomePageBeta(),
+      //home: HomePageBeta(),
+      home:  SplashScreen(),
     );
   }
 }
