@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_assignment/controllers/dateTimeHandler.dart';
+import 'package:test_assignment/utils/testTimePicker.dart';
 
 class CustomTimePickerBeta extends StatelessWidget {
   CustomTimePickerBeta(
@@ -14,6 +15,8 @@ class CustomTimePickerBeta extends StatelessWidget {
   var iconData;
 
   DateTimeHandler timeController = Get.put(DateTimeHandler());
+  CustomSpinnerTimePickerPopUP timePickerPopUp =
+      Get.put(CustomSpinnerTimePickerPopUP());
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +26,7 @@ class CustomTimePickerBeta extends StatelessWidget {
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(7))))),
       onPressed: () async {
-        boxTextString == "Start Time"
-            ? timeController.startTimeChecker(context)
-            : timeController.endTimeChecker(context);
+      timePickerPopUp.timePickerPopUP(context, boxTextString);
       },
       child: Obx(
         () => Column(

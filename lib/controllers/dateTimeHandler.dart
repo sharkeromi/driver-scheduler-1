@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:test_assignment/consts/globalVariables.dart';
 import 'package:time_picker_spinner_pop_up/time_picker_spinner_pop_up.dart';
 
-
 class DateTimeHandler extends GetxController {
   RxList listofDateTime = [].obs;
 
@@ -88,6 +87,7 @@ class DateTimeHandler extends GetxController {
   }
 
   void addDateTime(RxString newData) {
+    //clearFilterData();
     if (newData.toString().trim() == "") {
     } else {
       listofDateTime.add(newData);
@@ -103,6 +103,16 @@ class DateTimeHandler extends GetxController {
     startTime.value = '';
     endTime.value = '';
     update();
+  }
+
+  void submitData() {
+    // globalvariables.options.value.clear();
+    globalvariables.options.value = listofDateTime.value;
+    update();
+  }
+
+  clearFilterData() {
+    listofDateTime.clear();
   }
 
   void testTimeChecker(context) async {

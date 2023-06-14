@@ -164,8 +164,7 @@ class FilterPopUp {
                   Center(
                     child: InkWell(
                       onTap: () {
-                        globalvariables.options.value =
-                            dateTimeController.listofDateTime.value;
+                        dateTimeController.submitData();
                         Navigator.of(context).pop();
                       },
                       child: Padding(

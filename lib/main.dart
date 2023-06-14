@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       //home: LogInScreenBeta(),
-      home: TestScreen(),
-      //home:  SplashScreen(),
+      //home: TestScreen(),
+      home: SplashScreen(),
     );
   }
 }

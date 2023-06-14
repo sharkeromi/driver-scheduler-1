@@ -5,16 +5,16 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:test_assignment/utils/testTimePicker.dart';
 
 class TestScreen extends StatelessWidget {
-   TestScreen({Key? key}) : super(key: key);
+  TestScreen({Key? key}) : super(key: key);
 
-   CustomSpinnerTimePickerPopUP timePicker = CustomSpinnerTimePickerPopUP();
+  CustomSpinnerTimePickerPopUP timePicker = CustomSpinnerTimePickerPopUP();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
       child: TextButton(
         onPressed: () {
-          timePicker.timePickerPopUP(context);
+          timePicker.timePickerPopUP(context, "asda");
         },
         child: Text("Test"),
       ),
