@@ -2,6 +2,8 @@ import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:test_assignment/consts/globalVariables.dart';
+import 'package:time_picker_spinner_pop_up/time_picker_spinner_pop_up.dart';
+
 
 class DateTimeHandler extends GetxController {
   RxList listofDateTime = [].obs;
@@ -100,6 +102,21 @@ class DateTimeHandler extends GetxController {
     endDate.value = '';
     startTime.value = '';
     endTime.value = '';
+    update();
+  }
+
+  void testTimeChecker(context) async {
+    TimeOfDay? pickTime = await showTimePicker(
+        context: context,
+        initialTime: selectedStartDate.value.isBefore(DateTime.now())
+            ? TimeOfDay.now()
+            : selectedStartTime.value ?? const TimeOfDay(hour: 12, minute: 00));
+    if (pickTime != null) {
+      selectedStartTime.value = pickTime;
+      startTime.value =
+          '${pickTime.hour.toString()}:${pickTime.minute.toString()}';
+      addDateTime(startTime);
+    }
     update();
   }
 }

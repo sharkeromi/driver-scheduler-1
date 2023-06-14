@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_assignment/consts/globalVariables.dart';
 import 'package:test_assignment/screens/filterPopUp.dart';
 import 'package:test_assignment/utils/chipSection.dart';
 import 'package:test_assignment/utils/customTextFieldBeta.dart';
@@ -8,8 +7,7 @@ import 'package:test_assignment/utils/listViewDriver.dart';
 class HomePageBeta extends StatelessWidget {
   HomePageBeta({Key? key}) : super(key: key);
 
-  //ListViewHandler listViewController = Get.put(ListViewHandler());
-  FilterPopUp filterPopUp = new FilterPopUp();
+  FilterPopUp filterPopUp = FilterPopUp();
 
   @override
   Widget build(BuildContext context) {

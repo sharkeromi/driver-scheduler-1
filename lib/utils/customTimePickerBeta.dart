@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:test_assignment/controllers/dateTimeHandler.dart';
 
 class CustomTimePickerBeta extends StatelessWidget {
-   CustomTimePickerBeta({Key? key, required this.boxTextString,
+  CustomTimePickerBeta(
+      {Key? key,
+      required this.boxTextString,
       required this.iconData,
-      required this.timePicker}) : super(key: key);
-      var boxTextString;
+      required this.timePicker})
+      : super(key: key);
+  var boxTextString;
   RxString timePicker;
   var iconData;
 

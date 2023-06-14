@@ -18,20 +18,18 @@ class SplashScreenController extends GetxController {
 
   isLogin() async {
     // await sharedDataManageService.removeToken();
-    Timer(Duration(seconds: 3), () async {
-      var token = await sharedDataManageService.getToken();
-      print(token);
-      if (token == null) {
-        isLoggedIn.value = false;
-        Get.offAll(() => LogInScreenBeta());
-        print("token is Null");
-      } else {
-        //print(sharedPreferences.getString('token'));
-        isLoggedIn.value = true;
-        print("Already Logged In");
-        //  Fluttertoast.showToast(msg: "Already Logged In");
-        Get.offAll(() => HomePageBeta());
-      }
-    });
+    Timer(
+      const Duration(seconds: 3),
+      () async {
+        var token = await sharedDataManageService.getToken();
+        if (token == null) {
+          isLoggedIn.value = false;
+          Get.offAll(() => LogInScreenBeta());
+        } else {
+          isLoggedIn.value = true;
+          Get.offAll(() => HomePageBeta());
+        }
+      },
+    );
   }
 }
